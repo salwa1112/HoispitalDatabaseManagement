@@ -1,0 +1,76 @@
+﻿@model IEnumerable<A4NoahAmaral.Models.tblVisit>
+@* Represents a strongly typed view with the Visits object
+ * IEnumerable to receive a list of Visits *@
+
+@{
+    ViewBag.Title = "Visits";
+}
+
+<h2>Visits</h2>
+
+<p></p>
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@*Use get request since we are not modifying the data state*@
+@using (@Html.BeginForm("Index", "tblVisits", FormMethod.Get))
+{
+    <b> Search By: </b>
+    @Html.RadioButton("SearchBy", "Patient", true)<text>Patient Name&nbsp;&nbsp;</text>
+    @Html.RadioButton("SearchBy", "Doctor")<text>Doctor Name&nbsp;&nbsp;</text>
+    <br />
+    @Html.TextBox("Search")
+    <input type="submit" value="Search" />
+}
+
+<table class="table">
+    <tr>
+        <th>Date of Admission</th>
+        <th>Date of Discharge</th>
+        <th>Complaint</th>
+        <th>Doctor</th>
+        <th>Patient</th>
+
+        <th></th>
+    </tr>
+
+
+    @if (Model.Count() == 0)
+    {
+        <tr><td colspan="5">No Match for Search Criteria</tr>
+    }
+    else
+    {
+        foreach (var item in Model) //@*Model represents list of Visits*@
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfAdmission)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfDischarge)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Complaint)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.tblDoctor.Name)*@
+                    @Html.ActionLink(item.tblDoctor.Name, "../tblDoctors/Details", new { id = item.DoctorId })
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.tblPatient.Name)*@
+                    @Html.ActionLink(item.tblPatient.Name, "../tblPatients/Details", new { id = item.PatientId })
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+</table>

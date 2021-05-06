@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblDoctors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Office" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Telephone" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblLogin">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblPatients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="50" />
+    <Property Name="Telephone" Type="varchar" MaxLength="50" />
+    <Property Name="DateOfBirth" Type="datetime2" Precision="7" />
+    <Property Name="DoctorId" Type="int" />
+    <Property Name="HealthCardNumber" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblVisits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateOfAdmission" Type="datetime2" Precision="7" />
+    <Property Name="Complaint" Type="varchar" MaxLength="50" />
+    <Property Name="DoctorId" Type="int" />
+    <Property Name="PatientId" Type="int" />
+    <Property Name="DateOfDischarge" Type="datetime2" Precision="7" />
+  </EntityType>
+  <Association Name="FK__tblPatien__Docto__25869641">
+    <End Role="tblDoctors" Type="Self.tblDoctors" Multiplicity="0..1" />
+    <End Role="tblPatients" Type="Self.tblPatients" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDoctors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblPatients">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblVisits__Docto__286302EC">
+    <End Role="tblDoctors" Type="Self.tblDoctors" Multiplicity="0..1" />
+    <End Role="tblVisits" Type="Self.tblVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblDoctors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblVisits">
+        <PropertyRef Name="DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblVisits__Patie__29572725">
+    <End Role="tblPatients" Type="Self.tblPatients" Multiplicity="0..1" />
+    <End Role="tblVisits" Type="Self.tblVisits" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPatients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="tblVisits">
+        <PropertyRef Name="PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelsStoreContainer">
+    <EntitySet Name="tblDoctors" EntityType="Self.tblDoctors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblLogin" EntityType="Self.tblLogin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPatients" EntityType="Self.tblPatients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblVisits" EntityType="Self.tblVisits" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tblPatien__Docto__25869641" Association="Self.FK__tblPatien__Docto__25869641">
+      <End Role="tblDoctors" EntitySet="tblDoctors" />
+      <End Role="tblPatients" EntitySet="tblPatients" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblVisits__Docto__286302EC" Association="Self.FK__tblVisits__Docto__286302EC">
+      <End Role="tblDoctors" EntitySet="tblDoctors" />
+      <End Role="tblVisits" EntitySet="tblVisits" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblVisits__Patie__29572725" Association="Self.FK__tblVisits__Patie__29572725">
+      <End Role="tblPatients" EntitySet="tblPatients" />
+      <End Role="tblVisits" EntitySet="tblVisits" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,35 @@
+﻿@model A4NoahAmaral.Models.tblVisit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Visits</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>@Html.DisplayNameFor(model => model.Complaint)</dt>
+
+        <dd>@Html.DisplayFor(model => model.Complaint)</dd>
+
+        <dt>Doctor</dt>
+        <dd>@Html.DisplayFor(model => model.tblDoctor.Name)</dd>
+
+        <dt>Patient</dt>
+        <dd>@Html.DisplayFor(model => model.tblPatient.Name)</dd>
+
+        <dt>Date of Admission</dt>
+        <dd>@Html.DisplayFor(model => model.DateOfAdmission)</dd>
+
+        <dt>Date of Discharge</dt>
+        <dd>@Html.DisplayFor(model => model.DateOfDischarge)</dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

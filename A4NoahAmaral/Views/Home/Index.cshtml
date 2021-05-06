@@ -1,0 +1,18 @@
+﻿@model IEnumerable<A4NoahAmaral.Models.tblLogin>
+@* Represents a strongly typed view with the Login object
+ * IEnumerable to receive a list of Logins *@
+
+@{
+    ViewBag.Title = "Home";
+}
+
+<h2>Hospital Home Page</h2>
+
+@*
+    * Grabs the value of field Username in the Login table using a list
+    * Displays User Currently Logged in
+*@
+@foreach (var item in Model) //@*Model represents list of Login*@
+{
+    <p><i>Logged in as @item.Username</i></p>
+}

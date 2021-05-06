@@ -1,0 +1,82 @@
+﻿@model IEnumerable<A4NoahAmaral.Models.tblPatient>
+@* Represents a strongly typed view with the Patients object
+ * IEnumerable to receive a list of Patients *@
+
+@{
+    ViewBag.Title = "Patients";
+}
+
+<h2>Patients</h2>
+
+<p></p>
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+@*Use get request since we are not modifying the data state*@
+@using (@Html.BeginForm("Index", "tblPatients", FormMethod.Get))
+{
+    <b> Search By: </b>
+    @Html.RadioButton("SearchBy", "Name", true)<text>Patient Name&nbsp;&nbsp;</text>
+    @Html.RadioButton("SearchBy", "Telephone")<text>Phone Number&nbsp;&nbsp;</text>
+    @Html.RadioButton("SearchBy", "HealthCardNumber")<text>Health Card&nbsp;&nbsp;</text>
+    <br />
+    @Html.TextBox("Search")
+    <input type="submit" value="Search" />
+}
+
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Health Card Number</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Telephone</th>
+        <th>Date of Birth</th>
+        <th>Doctor</th>
+        <th></th>
+    </tr>
+
+    @if (Model.Count() == 0)
+    {
+        <tr><td colspan="5">No Match for Search Criteria</tr>
+    }
+    else
+    {
+
+        foreach (var item in Model) //@*Model represents list of Patients*@
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HealthCardNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telephone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.tblDoctor.Name)*@
+                    @Html.ActionLink(item.tblDoctor.Name, "../tblDoctors/Details", new { id = item.DoctorId })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    }
+</table>
